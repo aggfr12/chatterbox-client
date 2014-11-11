@@ -72,6 +72,10 @@ $(document).ready(function(){
 
       var messageElement = '<a href="#">'+name+'</a>: '+textToSend+'</br>';
 
+      // if(type === 'rooms') {
+
+      // }
+
       $('.messageList').append('<li>'+messageElement+'</li>');
     });
 
@@ -94,7 +98,8 @@ $(document).ready(function(){
   });
 
   $('ul.roomList').on('click','a',function(event){
-    // event.preventDefault();
+
+    // fetch(retrieveMessages($(this).html(), rooms));
     console.log( $(this).html() );
   });
 
