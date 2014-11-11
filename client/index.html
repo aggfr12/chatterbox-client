@@ -7,6 +7,8 @@
 
     <!-- dependencies -->
     <script src="bower_components/jquery/jquery.min.js"></script>
+    <script src="bower_components/underscore/underscore-min.js"></script>
+    <script src="bower_components/underscore/underscore.js"></script>
     <!-- your scripts -->
     <script src="env/config.js"></script>
     <script src="scripts/app.js"></script>
@@ -15,6 +17,24 @@
     <div id="main">
       <h1>chatterbox</h1>
       <!-- Your HTML goes here! -->
+      <div id="rooms">
+        <h2>Chatrooms</h2>
+        <ul class="roomList">
+        </ul>
+      </div>
+      <div id="messages">
+        <h2>Messages</h2>
+        <ul class="messageList chat">
+        </ul>
+      </div>
+      <div>
+        <form>
+          Message:</br><input class="messageInput" type="text" name="messageBox" autofocus></br>
+          Room:</br> <input class="roomInput" type="text" name="roomBox"></br>
+          <button class="button" type="button">Send Message</button>
+        </form>
+      </div>
     </div>
+
   </body>
 </html>

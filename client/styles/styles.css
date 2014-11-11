@@ -30,6 +30,13 @@ body {
     padding-left: 20px;
 }
 
+#main li {
+    display: block;
+    padding: 10px 0 10px 0;
+    /*border: 1px solid black;
+    border-radius: 5%;*/
+}
+
 #main .error {
     border: 1px solid red;
     background: #FDEFF0;
@@ -44,6 +51,11 @@ body {
     font-size: 12px;
     color: green;
     line-height: 13px;
+}
+
+#rooms li {
+    display: inline-block;
+    margin: 0 5px 0 5px;
 }
 
 form {
@@ -63,6 +75,7 @@ form input[type=text] {
     padding: 5px;
     margin-bottom: 5px;
     background-color: #eee;
+    border-radius: 5%;
 }
 
 .chat .username {
