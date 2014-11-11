@@ -2,6 +2,9 @@ $(document).ready(function(){
 
 
   app = {};
+  var time;
+  var room;
+  var name;
 
   var fetch = function(callback){
 
@@ -45,15 +48,19 @@ $(document).ready(function(){
     $('.roomList').find('li').remove();
 
     var rooms = [];
+    var names = [];
     var allMessages = data.results;
 
     _.each(allMessages, function(messageObject){
 
-      if (messageObject.username){
+      if (name) {
+        var name = name;
+      } else if (messageObject.username){
         var name = messageObject.username.replace(/<.+>/g,'')
       } else {
         var name = 'No Name Provided';
       }
+
       if (messageObject.text){
         var textToSend = messageObject.text.replace(/<.+>/g,'')
       } else if (messageObject.userMessage){
@@ -61,22 +68,22 @@ $(document).ready(function(){
       } else {
         var textToSend = 'No Message Provided';
       }
-      if (messageObject.roomName){
+
+      if (room) {
+        var chatroom = room;
+      } else if (messageObject.roomName){
         var chatroom = messageObject.roomName.replace(/<.+>/g,'')
       } else if (messageObject.roomname){
         var chatroom = messageObject.roomname.replace(/<.+>/g,'')
       } else {
-        var chatroom = 'No Chatroom Provided';
+        var chatroom = 'lobby';
       }
       rooms.push(chatroom);
 
       var messageElement = '<a href="#">'+name+'</a>: '+textToSend+'</br>';
 
-      // if(type === 'rooms') {
-
-      // }
-
-      $('.messageList').append('<li>'+messageElement+'</li>');
+      $('.messageList').append('<li class="'+chatroom+' '+name+'">'+messageElement+'</li>');
+      $('.messageList').find('li').hide();
     });
 
     var uniqRooms = _.uniq(rooms);
@@ -85,7 +92,7 @@ $(document).ready(function(){
     });
   }
 
-  $('.button').on('click',function(event){
+  $('button.sendMessage').on('click',function(event){
     var messageText = $('.messageInput').val();
     var messageRoom = $('.roomInput').val();
     var userName = window.location.search.replace(/\?username=/g, '');
@@ -97,18 +104,29 @@ $(document).ready(function(){
     post(message);
   });
 
-  $('ul.roomList').on('click','a',function(event){
+  $('button.refresh').on('click',function(event){
+      fetch(retrieveMessages);
+    });
 
-    // fetch(retrieveMessages($(this).html(), rooms));
-    console.log( $(this).html() );
+// gets roomname
+  $('ul.roomList').on('click','a',function(event){
+    event.preventDefault();
+    var roomClass = $(this).text();
+    // room = roomClass;
+    $('.messageList').find('li').hide();
+    $('.messageList').find('.'+roomClass).show();
   });
 
+// gets username
   $('ul.messageList').on('click','a',function(event){
-    // event.preventDefault();
-    console.log( $(this).html() );
+    event.preventDefault();
+    var nameClass = $(this).text();
+    // name = nameClass;
+    $('.messageList').find('li').hide();
+    $('.messageList').find('.'+nameClass).show();
   });
 
   fetch(retrieveMessages);
-  setInterval (function(){fetch(retrieveMessages)},2000);
+  // time = setInterval (function(){fetch(retrieveMessages)},2000);
 
 });
